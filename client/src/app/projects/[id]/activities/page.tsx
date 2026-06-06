@@ -10,6 +10,8 @@ import { getActivities } from "@/src/lib/activity";
 import ActivityTimeline from "@/src/components/activity/ActivityTimeline";
 import ActivityDetails from "@/src/components/activity/ActivityDetails";
 import ActivityFilters from "@/src/components/activity/ActivityFilters";
+import ProjectLayout from "@/src/components/project/ProjectLayout";
+import ActivitySkeleton from "@/src/components/skeletons/ActivitySkeleton";
 
 export default function ActivitiesPage() {
   const router = useRouter();
@@ -93,9 +95,7 @@ export default function ActivitiesPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        Loading activities...
-      </main>
+      <ActivitySkeleton />
     );
   }
 
@@ -117,86 +117,76 @@ export default function ActivitiesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-10">
+    <ProjectLayout projectId={projectId}>
+      {/* Header */}
 
-        {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold">
+          Activity Timeline
+        </h1>
 
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold">
-            Activity Timeline
-          </h1>
-
-          <p className="mt-2 text-zinc-400">
-            {project.name}
-          </p>
-        </div>
-
-        {/* Filter */}
-
-        <div className="mb-8">
-          <ActivityFilters
-            value={filter}
-            onChange={setFilter}
-          />
-        </div>
-
-        {/* Empty State */}
-
-        {filteredActivities.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-[#111111] p-12 text-center">
-            <h2 className="text-2xl font-semibold">
-              No Activities Found
-            </h2>
-
-            <p className="mt-3 text-zinc-400">
-              Activities will appear here
-              when AI tools execute,
-              research runs, or project
-              memory updates occur.
-            </p>
-
-            <button
-              onClick={() =>
-                router.push(
-                  `/project/${projectId}/workspace`
-                )
-              }
-              className="mt-6 rounded-xl bg-white px-6 py-3 font-medium text-black"
-            >
-              Open AI Workspace
-            </button>
-          </div>
-        ) : (
-          <div className="grid gap-8 lg:grid-cols-[420px_1fr]">
-
-            {/* Timeline */}
-
-            <div>
-              <ActivityTimeline
-                activities={
-                  filteredActivities
-                }
-                onSelect={
-                  setSelectedActivity
-                }
-              />
-            </div>
-
-            {/* Details */}
-
-            <div>
-              <ActivityDetails
-                activity={
-                  selectedActivity
-                }
-              />
-            </div>
-
-          </div>
-        )}
-
+        <p className="mt-2 text-zinc-400">
+          {project.name}
+        </p>
       </div>
-    </main>
+
+      {/* Filter */}
+
+      <div className="mb-8">
+        <ActivityFilters
+          value={filter}
+          onChange={setFilter}
+        />
+      </div>
+
+      {/* Empty State */}
+
+      {filteredActivities.length === 0 ? (
+        <div className="rounded-3xl border border-white/10 bg-[#111111] p-12 text-center">
+          <h2 className="text-2xl font-semibold">
+            No Activities Found
+          </h2>
+
+          <p className="mt-3 text-zinc-400">
+            Activities will appear here
+            when AI tools execute,
+            research runs, or project
+            memory updates occur.
+          </p>
+
+          <button
+            onClick={() =>
+              router.push(
+                `/project/${projectId}/workspace`
+              )
+            }
+            className="mt-6 rounded-xl bg-white px-6 py-3 font-medium text-black"
+          >
+            Open AI Workspace
+          </button>
+        </div>
+      ) : (
+        <div className="grid gap-8 lg:grid-cols-[420px_1fr]">
+          <div>
+            <ActivityTimeline
+              activities={
+                filteredActivities
+              }
+              onSelect={
+                setSelectedActivity
+              }
+            />
+          </div>
+
+          <div>
+            <ActivityDetails
+              activity={
+                selectedActivity
+              }
+            />
+          </div>
+        </div>
+      )}
+    </ProjectLayout>
   );
 }

@@ -15,6 +15,8 @@ import {
 import TaskBoard from "@/src/components/tasks/TaskBoard";
 import TaskFilters from "@/src/components/tasks/TaskFilters";
 import CreateTaskModal from "@/src/components/tasks/CreateTaskModal";
+import ProjectLayout from "@/src/components/project/ProjectLayout";
+import TaskBoardSkeleton from "@/src/components/skeletons/TaskBoardSkeleton";
 
 export default function TasksPage() {
   const router = useRouter();
@@ -101,9 +103,9 @@ export default function TasksPage() {
         prev.map((task) =>
           task.id === taskId
             ? {
-                ...task,
-                status,
-              }
+              ...task,
+              status,
+            }
             : task
         )
       );
@@ -144,7 +146,7 @@ export default function TasksPage() {
         const priorityMatch =
           priorityFilter === "all" ||
           task.priority ===
-            priorityFilter;
+          priorityFilter;
 
         return (
           statusMatch &&
@@ -159,9 +161,7 @@ export default function TasksPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        Loading tasks...
-      </main>
+      <TaskBoardSkeleton />
     );
   }
 
@@ -174,107 +174,95 @@ export default function TasksPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-10">
-        {/* Header */}
+    <ProjectLayout projectId={projectId}>
+      {/* Header */}
 
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-4xl font-bold">
-              Tasks
-            </h1>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 className="text-4xl font-bold">
+            Tasks
+          </h1>
 
-            <p className="mt-2 text-zinc-400">
-              {project.name}
-            </p>
-          </div>
-
-          <button
-            onClick={() =>
-              setShowModal(true)
-            }
-            className="rounded-xl bg-white px-5 py-3 font-medium text-black"
-          >
-            + New Task
-          </button>
+          <p className="mt-2 text-zinc-400">
+            {project.name}
+          </p>
         </div>
 
-        {/* Filters */}
+        <button
+          onClick={() =>
+            setShowModal(true)
+          }
+          className="rounded-xl bg-white px-5 py-3 font-medium text-black"
+        >
+          + New Task
+        </button>
+      </div>
 
+      {/* Filters */}
+
+      <div className="mt-8">
+        <TaskFilters
+          statusFilter={statusFilter}
+          priorityFilter={priorityFilter}
+          onStatusChange={setStatusFilter}
+          onPriorityChange={setPriorityFilter}
+        />
+      </div>
+
+      {/* Empty State */}
+
+      {tasks.length === 0 ? (
+        <div className="mt-12 rounded-3xl border border-white/10 bg-[#111111] p-10 text-center">
+          <h2 className="text-2xl font-semibold">
+            No tasks yet
+          </h2>
+
+          <p className="mt-3 text-zinc-400">
+            Generate tasks with AI
+            or create one manually.
+          </p>
+
+          <div className="mt-6 flex justify-center gap-4">
+            <button
+              onClick={() =>
+                router.push(
+                  `/project/${projectId}/workspace`
+                )
+              }
+              className="rounded-xl border border-white/10 px-5 py-3"
+            >
+              Open Workspace
+            </button>
+
+            <button
+              onClick={() =>
+                setShowModal(true)
+              }
+              className="rounded-xl bg-white px-5 py-3 text-black"
+            >
+              Create Task
+            </button>
+          </div>
+        </div>
+      ) : (
         <div className="mt-8">
-          <TaskFilters
-            statusFilter={
-              statusFilter
-            }
-            priorityFilter={
-              priorityFilter
-            }
+          <TaskBoard
+            tasks={filteredTasks}
             onStatusChange={
-              setStatusFilter
-            }
-            onPriorityChange={
-              setPriorityFilter
+              handleStatusChange
             }
           />
         </div>
+      )}
 
-        {/* Empty State */}
-
-        {tasks.length === 0 ? (
-          <div className="mt-12 rounded-3xl border border-white/10 bg-[#111111] p-10 text-center">
-            <h2 className="text-2xl font-semibold">
-              No tasks yet
-            </h2>
-
-            <p className="mt-3 text-zinc-400">
-              Generate tasks with AI
-              or create one manually.
-            </p>
-
-            <div className="mt-6 flex justify-center gap-4">
-              <button
-                onClick={() =>
-                  router.push(
-                    `/project/${projectId}/workspace`
-                  )
-                }
-                className="rounded-xl border border-white/10 px-5 py-3"
-              >
-                Open Workspace
-              </button>
-
-              <button
-                onClick={() =>
-                  setShowModal(true)
-                }
-                className="rounded-xl bg-white px-5 py-3 text-black"
-              >
-                Create Task
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="mt-8">
-            <TaskBoard
-              tasks={filteredTasks}
-              onStatusChange={
-                handleStatusChange
-              }
-            />
-          </div>
-        )}
-
-        <CreateTaskModal
-          projectId={projectId}
-          open={showModal}
-          onClose={() =>
-            setShowModal(false)
-          }
-          onCreate={
-            handleCreateTask
-          }
-        />
-      </div>
-    </main>
+      <CreateTaskModal
+        projectId={projectId}
+        open={showModal}
+        onClose={() =>
+          setShowModal(false)
+        }
+        onCreate={handleCreateTask}
+      />
+    </ProjectLayout>
   );
 }

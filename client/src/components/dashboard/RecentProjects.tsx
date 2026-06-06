@@ -1,3 +1,4 @@
+import Link from "next/link";
 interface Project {
   id: string;
   name: string;
@@ -25,9 +26,10 @@ export default function RecentProjects({
           </p>
         ) : (
           projects.map((project) => (
-            <div
+            <Link
               key={project.id}
-              className="rounded-2xl border border-white/10 p-4"
+              href={`/projects/${project.id}`}
+              className="block rounded-2xl border border-white/10 p-4 transition hover:border-white/20 hover:bg-white/5"
             >
               <h3 className="font-medium">
                 {project.name}
@@ -37,7 +39,7 @@ export default function RecentProjects({
                 {project.description ||
                   "No description provided"}
               </p>
-            </div>
+            </Link>
           ))
         )}
       </div>

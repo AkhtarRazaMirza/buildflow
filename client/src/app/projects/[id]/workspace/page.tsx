@@ -16,6 +16,7 @@ import {
 import WorkspaceSidebar from "@/src/components/workspace/WorkspaceSidebar";
 import ChatMessages from "@/src/components/workspace/ChatMessages";
 import ChatInput from "@/src/components/workspace/ChatInput";
+import ChatSkeleton from "@/src/components/skeletons/ChatSkeleton";
 
 export default function WorkspacePage() {
   const router = useRouter();
@@ -138,11 +139,7 @@ export default function WorkspacePage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        <p>
-          Loading workspace...
-        </p>
-      </main>
+      <ChatSkeleton />
     );
   }
 

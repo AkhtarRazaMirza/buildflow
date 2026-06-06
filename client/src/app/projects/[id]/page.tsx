@@ -12,6 +12,8 @@ import ProjectInsights from "@/src/components/project/ProjectInsights";
 import ProjectTasks from "@/src/components/project/ProjectTasks";
 import ProjectActivities from "@/src/components/project/ProjectActivities";
 import ContinueWorking from "@/src/components/project/ContinueWorking";
+import ProjectLayout from "@/src/components/project/ProjectLayout";
+import ProjectSkeleton from "@/src/components/skeletons/ProjectSkeleton";
 
 export default function ProjectPage() {
   const router = useRouter();
@@ -59,15 +61,7 @@ export default function ProjectPage() {
   }, [projectId, router]);
 
   if (loading) {
-    return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg">
-            Loading workspace...
-          </p>
-        </div>
-      </main>
-    );
+    return <ProjectSkeleton />;
   }
 
   if (!workspace) {
@@ -94,44 +88,30 @@ export default function ProjectPage() {
   } = workspace;
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-10">
+    <ProjectLayout projectId={projectId}>
+      <ProjectHeader project={project} />
 
-        <ProjectHeader
-          project={project}
-        />
-
-        <div className="mt-8 grid gap-8 lg:grid-cols-3">
-
-          <div className="lg:col-span-2">
-            <ProjectMemory
-              project={project}
-            />
-          </div>
-
-          <ProjectInsights
-            project={project}
-          />
-
+      <div className="mt-8 grid gap-8 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <ProjectMemory project={project} />
         </div>
 
-        <div className="mt-8">
-          <ProjectTasks
-            tasks={tasks}
-          />
-        </div>
-
-        <div className="mt-8">
-          <ProjectActivities
-            activities={activities}
-          />
-        </div>
-
-        <div className="mt-8">
-          <ContinueWorking />
-        </div>
-
+        <ProjectInsights project={project} />
       </div>
-    </main>
+
+      <div className="mt-8">
+        <ProjectTasks tasks={tasks} />
+      </div>
+
+      <div className="mt-8">
+        <ProjectActivities activities={activities} />
+      </div>
+
+      <div className="mt-8">
+        <ContinueWorking
+          projectId={projectId}
+        />
+      </div>
+    </ProjectLayout>
   );
 }
