@@ -14,6 +14,7 @@ import ProjectActivities from "@/src/components/project/ProjectActivities";
 import ContinueWorking from "@/src/components/project/ContinueWorking";
 import ProjectLayout from "@/src/components/project/ProjectLayout";
 import ProjectSkeleton from "@/src/components/skeletons/ProjectSkeleton";
+import ProjectNotFound from "@/src/components/error/ProjectNotFound";
 
 export default function ProjectPage() {
   const router = useRouter();
@@ -31,54 +32,41 @@ export default function ProjectPage() {
   const [workspace, setWorkspace] =
     useState<any>(null);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const user =
-          await getCurrentUser();
+ useEffect(() => {
+  async function load() {
+    try {
+      const user =
+        await getCurrentUser();
 
-        if (!user) {
-          router.push("/login");
-          return;
-        }
-
-        const data =
-          await getWorkspace(projectId);
-
-        setWorkspace(data);
-      } catch (error) {
-        console.error(error);
-
-        router.push("/dashboard");
-      } finally {
-        setLoading(false);
+      if (!user) {
+        router.push("/login");
+        return;
       }
-    }
 
-    if (projectId) {
-      load();
+      const data =
+        await getWorkspace(projectId);
+
+      setWorkspace(data);
+    } catch (error) {
+      console.error(error);
+
+      setWorkspace(null);
+    } finally {
+      setLoading(false);
     }
-  }, [projectId, router]);
+  }
+
+  if (projectId) {
+    load();
+  }
+}, [projectId, router]);
 
   if (loading) {
     return <ProjectSkeleton />;
   }
 
   if (!workspace) {
-    return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">
-            Project Not Found
-          </h1>
-
-          <p className="mt-3 text-zinc-400">
-            The requested project could
-            not be found.
-          </p>
-        </div>
-      </main>
-    );
+    return <ProjectNotFound />;
   }
 
   const {

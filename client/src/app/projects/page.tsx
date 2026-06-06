@@ -7,6 +7,7 @@ import { getCurrentUser } from "@/src/lib/auth";
 import { getProjects } from "@/src/lib/projects";
 
 import ProjectsGrid from "@/src/components/project/ProjectsGrid";
+import EmptyProjects from "@/src/components/empty/EmptyProjects";
 
 export default function ProjectsPage() {
   const router = useRouter();
@@ -65,9 +66,17 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <ProjectsGrid
-          projects={projects}
-        />
+        {projects.length === 0 ? (
+          <EmptyProjects
+            onCreateProject={() =>
+              router.push("/dashboard")
+            }
+          />
+        ) : (
+          <ProjectsGrid
+            projects={projects}
+          />
+        )}
       </div>
     </main>
   );

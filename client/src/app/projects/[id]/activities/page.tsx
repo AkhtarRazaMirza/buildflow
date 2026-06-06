@@ -12,6 +12,8 @@ import ActivityDetails from "@/src/components/activity/ActivityDetails";
 import ActivityFilters from "@/src/components/activity/ActivityFilters";
 import ProjectLayout from "@/src/components/project/ProjectLayout";
 import ActivitySkeleton from "@/src/components/skeletons/ActivitySkeleton";
+import EmptyActivities from "@/src/components/empty/EmptyActivities";
+import ProjectNotFound from "@/src/components/error/ProjectNotFound";
 
 export default function ActivitiesPage() {
   const router = useRouter();
@@ -69,8 +71,7 @@ export default function ActivitiesPage() {
         }
       } catch (error) {
         console.error(error);
-
-        router.push("/dashboard");
+        setProject(null);
       } finally {
         setLoading(false);
       }
@@ -100,20 +101,7 @@ export default function ActivitiesPage() {
   }
 
   if (!project) {
-    return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">
-            Project Not Found
-          </h1>
-
-          <p className="mt-3 text-zinc-400">
-            Unable to load project
-            activities.
-          </p>
-        </div>
-      </main>
-    );
+    return <ProjectNotFound />;
   }
 
   return (
@@ -142,29 +130,13 @@ export default function ActivitiesPage() {
       {/* Empty State */}
 
       {filteredActivities.length === 0 ? (
-        <div className="rounded-3xl border border-white/10 bg-[#111111] p-12 text-center">
-          <h2 className="text-2xl font-semibold">
-            No Activities Found
-          </h2>
-
-          <p className="mt-3 text-zinc-400">
-            Activities will appear here
-            when AI tools execute,
-            research runs, or project
-            memory updates occur.
-          </p>
-
-          <button
-            onClick={() =>
-              router.push(
-                `/project/${projectId}/workspace`
-              )
-            }
-            className="mt-6 rounded-xl bg-white px-6 py-3 font-medium text-black"
-          >
-            Open AI Workspace
-          </button>
-        </div>
+        <EmptyActivities
+          onOpenWorkspace={() =>
+            router.push(
+              `/project/${projectId}/workspace`
+            )
+          }
+        />
       ) : (
         <div className="grid gap-8 lg:grid-cols-[420px_1fr]">
           <div>

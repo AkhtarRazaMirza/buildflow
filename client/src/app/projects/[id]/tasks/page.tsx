@@ -17,6 +17,8 @@ import TaskFilters from "@/src/components/tasks/TaskFilters";
 import CreateTaskModal from "@/src/components/tasks/CreateTaskModal";
 import ProjectLayout from "@/src/components/project/ProjectLayout";
 import TaskBoardSkeleton from "@/src/components/skeletons/TaskBoardSkeleton";
+import EmptyTasks from "@/src/components/empty/EmptyTasks";
+import ProjectNotFound from "@/src/components/error/ProjectNotFound";
 
 export default function TasksPage() {
   const router = useRouter();
@@ -167,9 +169,7 @@ export default function TasksPage() {
 
   if (!project) {
     return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        Project not found.
-      </main>
+      <ProjectNotFound />
     );
   }
 
@@ -212,37 +212,17 @@ export default function TasksPage() {
       {/* Empty State */}
 
       {tasks.length === 0 ? (
-        <div className="mt-12 rounded-3xl border border-white/10 bg-[#111111] p-10 text-center">
-          <h2 className="text-2xl font-semibold">
-            No tasks yet
-          </h2>
-
-          <p className="mt-3 text-zinc-400">
-            Generate tasks with AI
-            or create one manually.
-          </p>
-
-          <div className="mt-6 flex justify-center gap-4">
-            <button
-              onClick={() =>
-                router.push(
-                  `/project/${projectId}/workspace`
-                )
-              }
-              className="rounded-xl border border-white/10 px-5 py-3"
-            >
-              Open Workspace
-            </button>
-
-            <button
-              onClick={() =>
-                setShowModal(true)
-              }
-              className="rounded-xl bg-white px-5 py-3 text-black"
-            >
-              Create Task
-            </button>
-          </div>
+        <div className="mt-12">
+          <EmptyTasks
+            onCreateTask={() =>
+              setShowModal(true)
+            }
+            onOpenWorkspace={() =>
+              router.push(
+                `/project/${projectId}/workspace`
+              )
+            }
+          />
         </div>
       ) : (
         <div className="mt-8">

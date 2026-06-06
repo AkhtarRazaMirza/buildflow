@@ -17,6 +17,8 @@ import WorkspaceSidebar from "@/src/components/workspace/WorkspaceSidebar";
 import ChatMessages from "@/src/components/workspace/ChatMessages";
 import ChatInput from "@/src/components/workspace/ChatInput";
 import ChatSkeleton from "@/src/components/skeletons/ChatSkeleton";
+import EmptyChat from "@/src/components/empty/EmptyChat";
+import WorkspaceError from "@/src/components/error/WorkspaceError";
 
 export default function WorkspacePage() {
   const router = useRouter();
@@ -71,9 +73,7 @@ export default function WorkspacePage() {
       } catch (error) {
         console.error(error);
 
-        router.push(
-          "/dashboard"
-        );
+        setProject(null)
       } finally {
         setLoading(false);
       }
@@ -145,18 +145,7 @@ export default function WorkspacePage() {
 
   if (!project) {
     return (
-      <main className="min-h-screen bg-[#0A0A0A] text-white flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold">
-            Workspace Not Found
-          </h1>
-
-          <p className="mt-3 text-zinc-400">
-            Unable to load this
-            workspace.
-          </p>
-        </div>
-      </main>
+      <WorkspaceError />
     );
   }
 
@@ -188,9 +177,13 @@ export default function WorkspacePage() {
           </div>
 
           <div className="flex-1 overflow-y-auto px-6 py-6">
-            <ChatMessages
-              messages={messages}
-            />
+            {messages.length === 0 ? (
+              <EmptyChat />
+            ) : (
+              <ChatMessages
+                messages={messages}
+              />
+            )}
           </div>
 
           <div className="border-t border-white/10 p-6">
