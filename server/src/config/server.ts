@@ -6,8 +6,9 @@ import { chatRoutes } from "../routes/chat.routes.js";
 import { projectRoutes } from "../routes/project.routes.js";
 import { activityRoutes } from "../routes/activity.routes.js";
 import taskRoutes from "../routes/task.routes.js";
-import dashboardRoutesfrom  from "../routes/dashboard.routes.js";
 import dashboardRoutes from "../routes/dashboard.routes.js";
+import workspaceRoutes from "../routes/workspace.routes.js";
+
 
 export function createApp() {
     const app = express();
@@ -28,9 +29,11 @@ export function createApp() {
     app.use("/api/activities", activityRoutes);
     app.use("/api/tasks", taskRoutes);
     app.use("/api/dashboard", dashboardRoutes);
+    app.use("/api/workspace", workspaceRoutes);
 
+    
     // Health check
-    app.get("/api/health", (req, res) => {
+    app.get("/api/health", (_req, res) => {
         res.json({ status: "ok" });
     });
 
