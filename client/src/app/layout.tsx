@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ProjectPilot - AI Project Manager",
+  title: "BuildFlow - AI Project Manager",
   description: "Manage projects with AI-powered assistance",
 };
 
