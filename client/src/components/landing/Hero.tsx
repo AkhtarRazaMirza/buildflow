@@ -1,7 +1,7 @@
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden animate-fade-in">
       <div className="mx-auto max-w-7xl px-6 py-24 lg:py-32">
         <div className="grid items-center gap-16 lg:grid-cols-2">
           <div>

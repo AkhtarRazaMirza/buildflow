@@ -1,7 +1,7 @@
 
 export default function CTA() {
   return (
-    <section className="border-t border-white/10 py-24">
+    <section className="border-t border-white/10 py-24 animate-fade-in">
       <div className="mx-auto max-w-5xl px-6">
         <div className="rounded-4xl border border-white/10 bg-[#111111] p-12 text-center lg:p-20">
           <span className="text-sm text-zinc-500">

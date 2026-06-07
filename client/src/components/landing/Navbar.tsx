@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0A0A0A]/80 backdrop-blur px-6">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0A0A0A]/80 backdrop-blur px-6 animate-fade-in">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between">
         <Link href="/" className="text-lg font-semibold tracking-tight">
           BuildFlow

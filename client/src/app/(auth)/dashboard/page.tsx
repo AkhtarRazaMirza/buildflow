@@ -13,6 +13,7 @@ import QuickActions from "@/src/components/dashboard/QuickActions";
 import { createProject } from "@/src/lib/projects";
 import CreateProjectModal from "@/src/components/project/CreateProjectModal";
 import DashboardSkeleton from "@/src/components/skeletons/DashboardSkeleton";
+import Navbar from "@/src/components/layout/Navbar";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -75,8 +76,9 @@ export default function Dashboard() {
         }
         onCreate={handleCreateProject}
       />
-      <main className="min-h-screen bg-[#0A0A0A] text-white">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+      <Navbar />
+      <main className="min-h-screen bg-[#0A0A0A] text-white animate-fade-in">
+        <div className="mx-auto max-w-[1400px] px-6 py-10">
           <DashboardHeader
             userName={user.full_name}
             totalProjects={

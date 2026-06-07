@@ -45,8 +45,9 @@ export default function Navbar() {
               className="text-xl font-bold tracking-tight text-white"
             >
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-xl bg-white" />
-
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-white text-sm font-bold text-black">
+                  B
+                </div>
                 <span className="text-xl font-bold tracking-tight text-white">
                   BuildFlow
                 </span>

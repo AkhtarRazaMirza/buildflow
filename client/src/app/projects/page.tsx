@@ -8,6 +8,7 @@ import { getProjects } from "@/src/lib/projects";
 
 import ProjectsGrid from "@/src/components/project/ProjectsGrid";
 import EmptyProjects from "@/src/components/empty/EmptyProjects";
+import Navbar from "@/src/components/layout/Navbar";
 
 export default function ProjectsPage() {
   const router = useRouter();
@@ -54,30 +55,33 @@ export default function ProjectsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-10">
-        <div className="mb-10">
-          <h1 className="text-4xl font-bold">
-            Projects
-          </h1>
+    <div>
+      <Navbar />
+      <main className="min-h-screen bg-[#0A0A0A] text-white animate-fade-in">
+        <div className="mx-auto max-w-[1400px] px-6 py-10">
+          <div className="mb-10">
+            <h1 className="text-4xl font-bold">
+              Projects
+            </h1>
 
-          <p className="mt-2 text-zinc-400">
-            Manage all your projects.
-          </p>
+            <p className="mt-2 text-zinc-400">
+              Manage all your projects.
+            </p>
+          </div>
+
+          {projects.length === 0 ? (
+            <EmptyProjects
+              onCreateProject={() =>
+                router.push("/dashboard")
+              }
+            />
+          ) : (
+            <ProjectsGrid
+              projects={projects}
+            />
+          )}
         </div>
-
-        {projects.length === 0 ? (
-          <EmptyProjects
-            onCreateProject={() =>
-              router.push("/dashboard")
-            }
-          />
-        ) : (
-          <ProjectsGrid
-            projects={projects}
-          />
-        )}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

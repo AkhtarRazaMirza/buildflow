@@ -49,7 +49,7 @@ export default function SignupPage() {
       );
 
       setTimeout(() => {
-        router.push("/me");
+        router.push("/dashboard");
       }, 1000);
     } catch (err) {
       setError(
@@ -63,7 +63,7 @@ export default function SignupPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-white">
+    <main className="min-h-screen bg-[#0A0A0A] text-white animate-fade-in">
       <div className="grid min-h-screen lg:grid-cols-2">
         {/* Left Side */}
         <div className="hidden border-r border-white/10 lg:flex">

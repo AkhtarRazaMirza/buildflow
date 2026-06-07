@@ -18,22 +18,22 @@ export default function ProjectSidebar({
 
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:block lg:space-y-2">
           <ProjectNavItem
-            href={`/project/${projectId}`}
+            href={`/projects/${projectId}`}
             label="Overview"
           />
 
           <ProjectNavItem
-            href={`/project/${projectId}/workspace`}
+            href={`/projects/${projectId}/workspace`}
             label="Workspace"
           />
 
           <ProjectNavItem
-            href={`/project/${projectId}/tasks`}
+            href={`/projects/${projectId}/tasks`}
             label="Tasks"
           />
 
           <ProjectNavItem
-            href={`/project/${projectId}/activities`}
+            href={`/projects/${projectId}/activities`}
             label="Activities"
           />
         </div>

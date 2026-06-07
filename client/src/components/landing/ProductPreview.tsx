@@ -1,7 +1,7 @@
 
 export default function ProductPreview() {
   return (
-    <section className="py-24">
+    <section className="py-24" animate-fade-in>
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
           <span className="text-sm text-zinc-500">

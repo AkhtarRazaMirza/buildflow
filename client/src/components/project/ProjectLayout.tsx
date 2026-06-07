@@ -1,5 +1,7 @@
 import { ReactNode } from "react";
 import ProjectSidebar from "./ProjectSidebar";
+import Navbar from "@/src/components/layout/Navbar";
+
 
 interface ProjectLayoutProps {
   projectId: string;
@@ -11,11 +13,20 @@ export default function ProjectLayout({
   children,
 }: ProjectLayoutProps) {
   return (
-    <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-6 lg:flex-row lg:gap-8 lg:px-6 lg:py-10">
-      <ProjectSidebar projectId={projectId} />
+    <div className="h-[calc(100vh-73px)] overflow-hidden">
+      <Navbar />
+      <div className="mx-auto flex h-full max-w-7xl gap-8 px-6 py-6">
 
-      <div className="min-w-0 flex-1">
-        {children}
+        {/* Fixed Sidebar */}
+        <div className="shrink-0">
+          <ProjectSidebar projectId={projectId} />
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="min-h-0 flex-1 overflow-y-auto pr-2">
+          {children}
+        </div>
+
       </div>
     </div>
   );

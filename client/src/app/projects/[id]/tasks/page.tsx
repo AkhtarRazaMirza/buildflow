@@ -219,7 +219,7 @@ export default function TasksPage() {
             }
             onOpenWorkspace={() =>
               router.push(
-                `/project/${projectId}/workspace`
+                `/projects/${projectId}/workspace`
               )
             }
           />

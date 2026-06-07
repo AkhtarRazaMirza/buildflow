@@ -19,6 +19,8 @@ import ChatInput from "@/src/components/workspace/ChatInput";
 import ChatSkeleton from "@/src/components/skeletons/ChatSkeleton";
 import EmptyChat from "@/src/components/empty/EmptyChat";
 import WorkspaceError from "@/src/components/error/WorkspaceError";
+import Navbar from "@/src/components/layout/Navbar";
+
 
 export default function WorkspacePage() {
   const router = useRouter();
@@ -149,57 +151,121 @@ export default function WorkspacePage() {
     );
   }
 
-  return (
-    <main className="h-screen bg-[#0A0A0A] text-white">
-      <div className="grid h-full lg:grid-cols-[320px_1fr]">
-        {/* Sidebar */}
+  // return (
+  //   <main className=" bg-[#0A0A0A] text-white">
+  //     <div className="grid h-full lg:grid-cols-[320px_1fr]">
+  //       {/* Sidebar */}
 
-        <aside className="border-r border-white/10 p-6 overflow-y-auto">
-          <WorkspaceSidebar
-            project={project}
-            onAction={
-              handleQuickAction
-            }
-          />
-        </aside>
+  //       <aside className="border-r border-white/10 p-6 overflow-y-auto">
+  //         <WorkspaceSidebar
+  //           project={project}
+  //           onAction={
+  //             handleQuickAction
+  //           }
+  //         />
+  //       </aside>
 
-        {/* Chat Area */}
+  //       {/* Chat Area */}
 
-        <section className="flex h-full flex-col">
-          <div className="border-b border-white/10 px-6 py-4">
-            <h1 className="font-semibold">
-              BuildFlow AI Workspace
-            </h1>
+  //       <section className="flex h-full flex-col">
+  //         <div className="border-b border-white/10 px-6 py-4">
+  //           <h1 className="font-semibold">
+  //             BuildFlow AI Workspace
+  //           </h1>
 
-            <p className="mt-1 text-sm text-zinc-500">
-              {project.name}
-            </p>
-          </div>
+  //           <p className="mt-1 text-sm text-zinc-500">
+  //             {project.name}
+  //           </p>
+  //         </div>
 
-          <div className="flex-1 overflow-y-auto px-6 py-6">
-            {messages.length === 0 ? (
-              <EmptyChat />
-            ) : (
-              <ChatMessages
-                messages={messages}
-              />
-            )}
-          </div>
+  //         <div className="flex-1 overflow-y-auto px-6 py-6 scroll-smooth">
+  //           {messages.length === 0 ? (
+  //             <EmptyChat />
+  //           ) : (
+  //             <ChatMessages
+  //               messages={messages}
+  //             />
+  //           )}
+  //         </div>
 
-          <div className="border-t border-white/10 p-6">
-            {sending && (
-              <p className="mb-3 text-sm text-zinc-500">
-                BuildFlow AI is
-                thinking...
-              </p>
-            )}
+  //         <div className="border-t border-white/10 p-6">
+  //           {sending && (
+  //             <p className="mb-3 text-sm text-zinc-500">
+  //               BuildFlow AI is
+  //               thinking...
+  //             </p>
+  //           )}
 
-            <ChatInput
-              onSend={handleSend}
+  //           <ChatInput
+  //             onSend={handleSend}
+  //           />
+  //         </div>
+  //       </section>
+  //     </div>
+  //   </main>
+  // );
+
+return (
+  <div>
+<Navbar />
+  <main className="h-[calc(100vh-72px)] overflow-hidden bg-[#0A0A0A] text-white">
+    <div className="grid h-full lg:grid-cols-[320px_1fr]">
+
+      {/* Sidebar */}
+
+      <aside className="h-full overflow-y-auto border-r border-white/10 p-6">
+        <WorkspaceSidebar
+          project={project}
+          onAction={handleQuickAction}
+        />
+      </aside>
+
+      {/* Workspace */}
+
+      <section className="flex h-full min-h-0 flex-col">
+
+        {/* Header */}
+
+        <div className="border-b border-white/10 px-6 py-4 shrink-0">
+          <h1 className="font-semibold">
+            BuildFlow AI Workspace
+          </h1>
+
+          <p className="mt-1 text-sm text-zinc-500">
+            {project.name}
+          </p>
+        </div>
+
+        {/* Messages */}
+
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6 scroll-smooth">
+          {messages.length === 0 ? (
+            <EmptyChat />
+          ) : (
+            <ChatMessages
+              messages={messages}
             />
-          </div>
-        </section>
-      </div>
-    </main>
-  );
+          )}
+        </div>
+
+        {/* Input */}
+
+        <div className="shrink-0 border-t border-white/10 p-6">
+          {sending && (
+            <p className="mb-3 text-sm text-zinc-500">
+              BuildFlow AI is thinking...
+            </p>
+          )}
+
+          <ChatInput
+            onSend={handleSend}
+          />
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+  </div>
+);
 }

@@ -29,7 +29,7 @@ export default function RecentProjects({
             <Link
               key={project.id}
               href={`/projects/${project.id}`}
-              className="block rounded-2xl border border-white/10 p-4 transition hover:border-white/20 hover:bg-white/5"
+              className="block rounded-2xl border border-white/10 p-4 transition-all hover:border-white/20 hover:bg-white/[0.03] hover:-translate-y-1 transition-all duration-200 hover:bg-white/5"
             >
               <h3 className="font-medium">
                 {project.name}
@@ -37,7 +37,7 @@ export default function RecentProjects({
 
               <p className="mt-2 text-sm text-zinc-400">
                 {project.description ||
-                  "No description provided"}
+                  "No description provided"} 
               </p>
             </Link>
           ))

@@ -32,34 +32,34 @@ export default function ProjectPage() {
   const [workspace, setWorkspace] =
     useState<any>(null);
 
- useEffect(() => {
-  async function load() {
-    try {
-      const user =
-        await getCurrentUser();
+  useEffect(() => {
+    async function load() {
+      try {
+        const user =
+          await getCurrentUser();
 
-      if (!user) {
-        router.push("/login");
-        return;
+        if (!user) {
+          router.push("/login");
+          return;
+        }
+
+        const data =
+          await getWorkspace(projectId);
+
+        setWorkspace(data);
+      } catch (error) {
+        console.error(error);
+
+        setWorkspace(null);
+      } finally {
+        setLoading(false);
       }
-
-      const data =
-        await getWorkspace(projectId);
-
-      setWorkspace(data);
-    } catch (error) {
-      console.error(error);
-
-      setWorkspace(null);
-    } finally {
-      setLoading(false);
     }
-  }
 
-  if (projectId) {
-    load();
-  }
-}, [projectId, router]);
+    if (projectId) {
+      load();
+    }
+  }, [projectId, router]);
 
   if (loading) {
     return <ProjectSkeleton />;
@@ -76,30 +76,32 @@ export default function ProjectPage() {
   } = workspace;
 
   return (
-    <ProjectLayout projectId={projectId}>
-      <ProjectHeader project={project} />
+    <div>
+      <ProjectLayout projectId={projectId}>
+        <ProjectHeader project={project} />
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <ProjectMemory project={project} />
+        <div className="mt-8 grid gap-8 lg:grid-cols-3">
+          <div className="lg:col-span-2">
+            <ProjectMemory project={project} />
+          </div>
+
+          <ProjectInsights project={project} />
         </div>
 
-        <ProjectInsights project={project} />
-      </div>
+        <div className="mt-8">
+          <ProjectTasks tasks={tasks} />
+        </div>
 
-      <div className="mt-8">
-        <ProjectTasks tasks={tasks} />
-      </div>
+        <div className="mt-8">
+          <ProjectActivities activities={activities} />
+        </div>
 
-      <div className="mt-8">
-        <ProjectActivities activities={activities} />
-      </div>
-
-      <div className="mt-8">
-        <ContinueWorking
-          projectId={projectId}
-        />
-      </div>
-    </ProjectLayout>
+        <div className="mt-8">
+          <ContinueWorking
+            projectId={projectId}
+          />
+        </div>
+      </ProjectLayout>
+    </div>
   );
 }

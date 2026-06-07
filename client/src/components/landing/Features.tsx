@@ -36,7 +36,7 @@ export default function Features() {
   return (
     <section
       id="features"
-      className="border-t border-white/10 py-24"
+      className="border-t border-white/10 py-24 animate-fade-in"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-2xl">
