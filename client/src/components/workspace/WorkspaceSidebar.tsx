@@ -16,7 +16,7 @@ export default function WorkspaceSidebar({
   onAction,
 }: Props) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 lg:space-y-6">
       <div className="rounded-2xl border border-white/10 bg-[#111111] p-5">
         <h2 className="font-semibold">
           {project.name}

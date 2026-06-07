@@ -7,7 +7,7 @@ export default function ProjectHeader({
 }: Props) {
   return (
     <div className="mb-8">
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-3xl lg:text-4xl font-bold">
         {project.name}
       </h1>
 

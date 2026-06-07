@@ -15,7 +15,7 @@ export default function TaskColumn({
   onStatusChange,
 }: Props) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#0F0F0F] p-5">
+    <div className="h-fit rounded-3xl border border-white/10 bg-[#0F0F0F] p-5">
       <div className="mb-5 flex items-center justify-between">
         <h2 className="font-semibold">
           {title}

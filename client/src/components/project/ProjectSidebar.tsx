@@ -8,7 +8,7 @@ export default function ProjectSidebar({
   projectId,
 }: ProjectSidebarProps) {
   return (
-    <aside className="sticky top-24 h-fit w-78 shrink-0">
+    <aside className="w-full shrink-0 lg:sticky lg:top-24 lg:w-72">
       <div className="rounded-3xl border border-white/10 bg-[#111111] p-4">
         <div className="mb-6 border-b border-white/10 pb-4">
           <h2 className="text-sm font-semibold text-white">
@@ -16,7 +16,7 @@ export default function ProjectSidebar({
           </h2>
         </div>
 
-        <div className="space-y-2">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:block lg:space-y-2">
           <ProjectNavItem
             href={`/project/${projectId}`}
             label="Overview"

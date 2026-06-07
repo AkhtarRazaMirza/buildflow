@@ -12,7 +12,7 @@ export default function ActivityTimeline({
   onSelect,
 }: Props) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-x-hidden">
       {activities.map(
         (activity) => (
           <ActivityItem
