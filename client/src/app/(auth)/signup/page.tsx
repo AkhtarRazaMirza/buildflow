@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { register } from "@/src/lib/auth";
 import { useRouter } from "next/navigation";
-import Alert from "@/src/components/Alert";
+import Alert from "@/src/components/ui/Alert";
 import Link from "next/link";
 
 export default function SignupPage() {

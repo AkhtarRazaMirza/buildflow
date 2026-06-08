@@ -4,7 +4,7 @@ import { useState } from "react";
 import { login } from "@/src/lib/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Alert from "@/src/components/Alert";
+import Alert from "@/src/components/ui/Alert";
 
 export default function LoginPage() {
   const router = useRouter();
