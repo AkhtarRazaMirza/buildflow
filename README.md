@@ -56,6 +56,15 @@ This project was also built to deepen my understanding of:
 * Vercel
 * Render
 
+## Architecture
+
+Client (Next.js)
+        ↓
+Express API
+        ↓
+PostgreSQL Database
+        ↓
+AI Services (Groq + Tavily)
 ## Live Demo
 
 Frontend:
@@ -64,27 +73,29 @@ https://buildflow.akhtarraza.in
 Backend API:
 https://buildflow-api.akhtarraza.in
 
+Repository:
+https://github.com/AkhtarRazaMirza/buildflow
 ## Screenshots
 
 ### Dashboard
 
-*Add dashboard screenshot here*
+![Dashboard](./assets/screenshots/dashboard.png)
 
 ### Projects
 
-*Add projects screenshot here*
+![Projects](./assets/screenshots/projects.png)
 
 ### AI Workspace
 
-*Add workspace screenshot here*
+![AI Workspace](./assets/screenshots/workspace.png)
 
 ### Tasks
 
-*Add tasks screenshot here*
+![Tasks](./assets/screenshots/tasks.png)
 
 ### Activities
 
-*Add activities screenshot here*
+![Activities](./assets/screenshots/activities.png)
 
 ## Running Locally
 
@@ -131,6 +142,10 @@ TAVILY_API_KEY=
 * AI-generated project reports
 * File uploads
 
+## Current Version
+
+v1.0.0
+
 ## What I Learned
 
 Building BuildFlow taught me a lot about designing full-stack applications that combine AI capabilities with traditional software architecture.
@@ -143,5 +158,8 @@ Akhtar Raza
 
 GitHub:
 https://github.com/AkhtarRazaMirza
+
+Portfolio:
+https://akhtarraza.in
 
 Built as a portfolio project while learning modern full-stack and AI application development.
